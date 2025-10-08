@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-
+export {webApp, Page, List, Task, Label}
 
 class SupportFunc {
     getNow() {
@@ -10,12 +10,13 @@ class SupportFunc {
     }
 }
 
-class webApp {
+class webApp extends SupportFunc {
 
     #page_id = 0
     #label_id = 0
 
     constructor() {
+        super()
         this.pages = [
             new Page("Page 1", this.#page_id)
         ];
@@ -48,6 +49,7 @@ class Page extends SupportFunc {
     #list_id = 0;
 
     constructor(pageName, id) {
+        super()
         this.id = id;
         this.name = pageName;
         this.dateCreated = this.getNow()
@@ -83,6 +85,7 @@ class List extends SupportFunc {
     #task_id = 0;
 
     constructor(listName, id) {
+        super()
         this.id = id;
         this.name = listName;
         this.dateCreated = this.getNow();
@@ -117,6 +120,7 @@ class List extends SupportFunc {
 
 class Task extends SupportFunc {
     constructor(taskName, finishDate, id) {
+        super()
         this.id = id;
         this.title = taskName;
         this.dateCreated = this.getNow();
