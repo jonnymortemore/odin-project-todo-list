@@ -50,5 +50,24 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: var(--light-background-color);
+  color: var(--dark-font-color);
 }
 
+:root {
+  --dark-background-color: #397367;
+  --light-background-color: #DEEDEA;
+  --light-font-color: #DEEDEA;
+  --dark-font-color: #162724;
+}
+
+header {
+  height: 50px;
+  background-color: var(--dark-background-color);
+  color: var(--light-font-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
