@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-export {webApp, Page, List, Task, Label}
+export {WebApp, Page, List, Task, Label}
 
 class SupportFunc {
     getNow() {
@@ -10,7 +10,7 @@ class SupportFunc {
     }
 }
 
-class webApp extends SupportFunc {
+class WebApp extends SupportFunc {
 
     #page_id = 0
     #label_id = 0
