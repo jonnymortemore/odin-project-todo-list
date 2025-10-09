@@ -7,16 +7,28 @@ export class WebAppDom {
         this.loadPage(this.currentPage)
     }
     loadPage(page) {
-        //generate selected page
-        const pageElement = document.createElement('div');
-        pageElement.className = "page";
-        pageElement.innerText = page.name;
-        document.querySelector("main").appendChild(pageElement);
+        //set page name
+        document.querySelector(".page-name").innerText = page.name
+        //load lists
+        page.lists.forEach(list => {
+            this.loadList(list)
+        });
     }
-    loadList() {
-
+    loadList(list) {
+        //copy list template and update classname and append
+        const listEl = document.querySelector(".list-template").cloneNode(true);
+        listEl.className = "list";
+        listEl.removeAttribute("hidden");
+        document.querySelector(".lists").appendChild(listEl);
+        listEl.querySelector(".list-header .list-name").innerText = list.name;
+        list.tasks.forEach(task => {
+            this.loadTask(listEl.querySelector(".list-content"), task)
+        });
     }
-    loadTask() {
-
+    loadTask(listEl, task) {
+        const taskEl = document.createElement("div");
+        taskEl.className = "task";
+        taskEl.innerText = task.title;
+        listEl.appendChild(taskEl);
     }
 }
