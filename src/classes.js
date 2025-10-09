@@ -18,7 +18,7 @@ class WebApp extends SupportFunc {
     constructor() {
         super()
         this.pages = [
-            new Page("Page 1", this.#page_id)
+            new Page("Project 1", this.#page_id)
         ];
         // will hold all created labels
         this.labels = [

@@ -19,10 +19,10 @@ export class WebAppDom {
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
         listEl.removeAttribute("hidden");
-        document.querySelector(".lists").appendChild(listEl);
+        document.querySelector(".page-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = list.name;
         list.tasks.forEach(task => {
-            this.loadTask(listEl.querySelector(".list-content"), task)
+            this.loadTask(listEl.querySelector(".list-tasks"), task)
         });
     }
     loadTask(listEl, task) {

@@ -52,6 +52,11 @@ body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background-color: var(--light-background-color);
   color: var(--dark-font-color);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 12fr;
+  height: 100vh;
+
 }
 
 :root {
@@ -59,10 +64,12 @@ body {
   --light-background-color: #DEEDEA;
   --light-font-color: #DEEDEA;
   --dark-font-color: #162724;
+  --light-dark-background-color: #A5D3C9; 
+  --standard-border: 3px solid var(--dark-background-color);
+  --standard-radius: 20px;
 }
 
 header {
-  height: 50px;
   background-color: var(--dark-background-color);
   color: var(--light-font-color);
   display: flex;
@@ -70,4 +77,104 @@ header {
   align-items: center;
   justify-content: center;
   font-weight: bold;
+}
+
+button {
+  border-radius: var(--standard-radius);
+  border-bottom: 4px solid var(--dark-font-color);
+  border-right: 4px solid var(--dark-font-color);;
+  background-color: var(--dark-background-color);
+  color: var(--light-font-color);
+  padding: 10px 30px 10px 30px;
+}
+
+button:hover {
+  background-color: var(--light-dark-background-color);
+  color: var(--dark-font-color)
+}
+
+/* Page Related */
+
+.page {
+   display: grid;
+   width: 100%;
+   grid-template-columns: 1fr;
+   grid-template-rows: 1fr 8fr;
+   height: 100%;
+}
+
+.page-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--light-dark-background-color);
+
+}
+
+.page-header > * {
+  margin-left: 30px;
+}
+
+.page-name {
+  border-right: var(--standard-border);
+  border-bottom: var(--standard-border);
+  padding: 10px;
+  border-radius: var(--standard-radius);
+}
+
+.page-lists {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+/* List CSS */
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 8fr 1fr;
+  height: 90%;
+  border: var(--standard-border);
+  padding: 10px;
+  min-width: 300px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: var(--standard-radius);
+}
+
+.list-header {
+  border: var(--standard-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--standard-radius);
+
+}
+
+.list-tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  margin-top: 10px;
+}
+
+.list-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+/* Task CSS */
+.task {
+  border-radius: var(--standard-radius);
+  border: var(--standard-border);
+  width: 100%;
+  padding: 20px;
 }
