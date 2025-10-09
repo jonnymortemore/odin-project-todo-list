@@ -8,7 +8,9 @@ export class WebAppDom {
     }
     loadPage(page) {
         //set page name
-        document.querySelector(".page-name").innerText = page.name
+        const pageEl = document.querySelector(".page");
+        document.querySelector(".page-name").innerText = page.name;
+        pageEl.id = page.id;
         //load lists
         page.lists.forEach(list => {
             this.loadList(list)
@@ -19,6 +21,7 @@ export class WebAppDom {
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
         listEl.removeAttribute("hidden");
+        listEl.id = list.id;
         document.querySelector(".page-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = list.name;
         list.tasks.forEach(task => {
@@ -29,6 +32,7 @@ export class WebAppDom {
         const taskEl = document.createElement("div");
         taskEl.className = "task";
         taskEl.innerText = task.title;
+        taskEl.id = task.id;
         listEl.appendChild(taskEl);
     }
 }
