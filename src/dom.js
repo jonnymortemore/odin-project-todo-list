@@ -12,6 +12,7 @@ export class WebAppDom {
         document.querySelector(".project-name").innerText = project.name;
         projectEl.id = project.id;
         //load lists
+        document.querySelector(".project-lists").innerHTML = "";
         project.lists.forEach(list => {
             this.loadList(list)
         });
