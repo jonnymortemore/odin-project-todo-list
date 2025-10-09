@@ -95,7 +95,7 @@ button:hover {
 
 /* Page Related */
 
-.page {
+.project {
    display: grid;
    width: 100%;
    grid-template-columns: 1fr;
@@ -103,7 +103,7 @@ button:hover {
    height: 100%;
 }
 
-.page-header {
+.project-header {
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -114,18 +114,18 @@ button:hover {
 
 }
 
-.page-header > * {
+.project-header > * {
   margin-left: 30px;
 }
 
-.page-name {
+.project-name {
   border-right: var(--standard-border);
   border-bottom: var(--standard-border);
   padding: 10px;
   border-radius: var(--standard-radius);
 }
 
-.page-lists {
+.project-lists {
   display: flex;
   flex-direction: row;
   width: 100%;

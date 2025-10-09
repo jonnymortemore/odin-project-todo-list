@@ -1,18 +1,18 @@
-import {WebApp, Page, List, Task, Label} from "./classes"
+import {WebApp, Project, List, Task, Label} from "./classes"
 
 export class WebAppDom {
     constructor() {
         this.webApp = new WebApp
-        this.currentPage = this.webApp.pages[0];
-        this.loadPage(this.currentPage)
+        this.currentProject = this.webApp.projects[0];
+        this.loadProject(this.currentProject)
     }
-    loadPage(page) {
-        //set page name
-        const pageEl = document.querySelector(".page");
-        document.querySelector(".page-name").innerText = page.name;
-        pageEl.id = page.id;
+    loadProject(project) {
+        //set project name
+        const projectEl = document.querySelector(".project");
+        document.querySelector(".project-name").innerText = project.name;
+        projectEl.id = project.id;
         //load lists
-        page.lists.forEach(list => {
+        project.lists.forEach(list => {
             this.loadList(list)
         });
     }
@@ -22,7 +22,7 @@ export class WebAppDom {
         listEl.className = "list";
         listEl.removeAttribute("hidden");
         listEl.id = list.id;
-        document.querySelector(".page-lists").appendChild(listEl);
+        document.querySelector(".project-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = list.name;
         list.tasks.forEach(task => {
             this.loadTask(listEl.querySelector(".list-tasks"), task)

@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-export {WebApp, Page, List, Task, Label}
+export {WebApp, Project, List, Task, Label}
 
 class SupportFunc {
     getNow() {
@@ -12,25 +12,25 @@ class SupportFunc {
 
 class WebApp extends SupportFunc {
 
-    #page_id = 0
+    #project_id = 0
     #label_id = 0
 
     constructor() {
         super()
-        this.pages = [
-            new Page("Project 1", this.#page_id)
+        this.projects = [
+            new Project("Project 1", this.#project_id)
         ];
         // will hold all created labels
         this.labels = [
             new Label("Important", "#FF0000", this.#label_id),
         ];
     }
-    createPage(pageName) {
-        this.#page_id++
-        this.pages.push(new Page(pageName, this.#page_id));
+    createProject(projectName) {
+        this.#project_id++
+        this.projects.push(new Project(projectName, this.#project_id));
     }
-    deletePage(page) {
-        //find pages in array and remove
+    deleteProject(project) {
+        //find projects in array and remove
     }
 
     createLabel(labelName, color) {
@@ -44,20 +44,20 @@ class WebApp extends SupportFunc {
 
 }
 
-class Page extends SupportFunc {
+class Project extends SupportFunc {
 
     #list_id = 0;
 
-    constructor(pageName, id) {
+    constructor(projectName, id) {
         super()
         this.id = id;
-        this.name = pageName;
+        this.name = projectName;
         this.dateCreated = this.getNow()
         this.lists = [
             new List("List 1", this.#list_id)
         ]
     }
-    //getting and setting page name
+    //getting and setting project name
     set name(name) {
         this._name = name;
     }
