@@ -17,7 +17,8 @@ class WebAppController {
         this.webDom.updateProjectElements(
             project.name, 
             project.id, 
-            this.addList.bind(this)
+            this.addList.bind(this),
+            this.renameProject.bind(this)
         )
         project.lists.forEach(list => {
             this.webDom.createListElements(

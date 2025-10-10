@@ -1,7 +1,7 @@
 
 
 export class WebAppDom {
-    updateProjectElements(name, id, addListFunc) {
+    updateProjectElements(name, id, addListFunc, renameProjectFunc) {
         //set project name
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
@@ -10,6 +10,13 @@ export class WebAppDom {
         document.querySelector(".project-lists").innerHTML = "";
         document.querySelector(".add-list-button").addEventListener("click", () => {
             addListFunc("New List");
+        });
+        document.querySelector('.project-name').addEventListener('keydown', (evt) => {
+            if (evt.key === "Enter") {
+                evt.preventDefault();
+                renameProjectFunc(id, evt.target.innerText);
+                evt.target.blur();
+            }
         });
     }
     createListElements(name, id, addTaskFunc, renameListFunc) {
@@ -20,7 +27,7 @@ export class WebAppDom {
         listEl.id = id;
         document.querySelector(".project-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = name;
-        
+
         listEl.querySelector(".add-task-button").addEventListener("click", () => {
             addTaskFunc("New Task", id);
         });

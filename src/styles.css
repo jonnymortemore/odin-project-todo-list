@@ -122,7 +122,15 @@ button:hover {
   border-right: var(--standard-border);
   border-bottom: var(--standard-border);
   padding: 10px;
+  min-width: 200px;
+  text-align: center;
   border-radius: var(--standard-radius);
+}
+
+.project-name[contenteditable="true"]:focus {
+  outline: none;  
+  color: var(--light-font-color);
+  background-color: var(--dark-background-color);
 }
 
 .project-lists {
