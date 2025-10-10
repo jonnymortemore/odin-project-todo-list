@@ -177,4 +177,5 @@ button:hover {
   border: var(--standard-border);
   width: 100%;
   padding: 20px;
+  margin-bottom: 10px;
 }
