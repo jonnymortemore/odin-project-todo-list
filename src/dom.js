@@ -42,12 +42,20 @@ export class WebAppDom {
     deleteListElements(id) {
         document.querySelector(`#${id}.list `).remove();
     }
-    createTaskElements(listId, title, id) {
+    createTaskElements(listId, title, id, renameTaskFunc) {
         const listEl = document.querySelector(`.list[id="${listId}"]`)
         const taskEl = document.createElement("div");
         taskEl.className = "task";
         taskEl.innerText = title;
         taskEl.id = id;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
+        taskEl.setAttribute("contenteditable", true);
+        taskEl.addEventListener('keydown', (evt) => {
+            if (evt.key === "Enter") {
+                evt.preventDefault();
+                renameTaskFunc(listId, id, evt.target.innerText);
+                evt.target.blur();
+            }
+        });
     }
 }

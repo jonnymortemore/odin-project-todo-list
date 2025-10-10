@@ -203,3 +203,9 @@ button:hover {
   padding: 20px;
   margin-bottom: 10px;
 }
+
+.task[contenteditable="true"]:focus {
+  outline: none;  
+  color: var(--light-font-color);
+  background-color: var(--dark-background-color);
+}

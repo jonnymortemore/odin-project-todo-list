@@ -31,7 +31,8 @@ class WebAppController {
                 this.webDom.createTaskElements(
                     list.id, 
                     task.title, 
-                    task.id
+                    task.id,
+                    this.renameTask.bind(this)
                 )
             });
         });
