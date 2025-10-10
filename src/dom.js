@@ -38,6 +38,8 @@ export class WebAppDom {
                 evt.target.blur();
             }
         });
+        listEl.querySelector('.list-name').focus();
+
     }
     deleteListElements(id) {
         document.querySelector(`#${id}.list `).remove();
@@ -57,5 +59,6 @@ export class WebAppDom {
                 evt.target.blur();
             }
         });
+        taskEl.focus();
     }
 }

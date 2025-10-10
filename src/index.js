@@ -76,7 +76,12 @@ class WebAppController {
     addTask(taskName, listId) {
         const list = this.currentProject.findList(listId);
         const task = list.createTask(taskName, list.id);
-        this.webDom.createTaskElements(listId, task.title, task.id)
+        this.webDom.createTaskElements(
+            listId, 
+            task.title, 
+            task.id,
+            this.renameTask.bind(this)
+        )
     }
 
     deleteTask(taskId, listId) {
