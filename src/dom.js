@@ -1,7 +1,7 @@
 
 
 export class WebAppDom {
-    updateProjectElements(name, id, WebController) {
+    updateProjectElements(name, id, addList) {
         //set project name
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
@@ -9,10 +9,10 @@ export class WebAppDom {
         //load lists
         document.querySelector(".project-lists").innerHTML = "";
         document.querySelector(".add-list-button").addEventListener("click", () => {
-            WebController.addList("New List");
+            addList("New List");
         });
     }
-    createListElements(name, id, WebController) {
+    createListElements(name, id, addTask) {
         //copy list template and update classname and append
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
@@ -21,7 +21,7 @@ export class WebAppDom {
         document.querySelector(".project-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = name;
         listEl.querySelector(".add-task-button").addEventListener("click", () => {
-            WebController.addTask("New Task", id);
+            addTask("New Task", id);
         });
 
     }

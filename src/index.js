@@ -14,9 +14,9 @@ class WebAppController {
     
     loadProject(project) {
         this.currentProject = project;
-        this.webDom.updateProjectElements(project.name, project.id, this)
+        this.webDom.updateProjectElements(project.name, project.id, this.addList.bind(this))
         project.lists.forEach(list => {
-            this.webDom.createListElements(list.name, list.id, this)
+            this.webDom.createListElements(list.name, list.id, this.addTask.bind(this))
             list.tasks.forEach(task => {
                 this.webDom.createTaskElements(list.id, task.title, task.id)
             });
@@ -40,7 +40,7 @@ class WebAppController {
 
     addList(listName) {
         const list = this.currentProject.createList(listName);
-        this.webDom.createListElements(list.name, list.id, this)
+        this.webDom.createListElements(list.name, list.id, this.addTask.bind(this))
     }
 
     deleteList(listId) {
