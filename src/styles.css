@@ -152,8 +152,24 @@ button:hover {
   justify-content: center;
   align-items: center;
   border-radius: var(--standard-radius);
-
+  width: 100%;
 }
+
+.list-name {
+  width: 100%;
+  border-radius: var(--standard-radius);
+  text-align: center;
+}
+
+.list-name[contenteditable="true"]:focus {
+  outline: none;  
+  color: var(--light-font-color);
+}
+
+.list-header:has(.list-name[contenteditable="true"]:focus) {
+  background-color: var(--dark-background-color);
+}
+
 
 .list-tasks {
   display: flex;

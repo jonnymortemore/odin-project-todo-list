@@ -1,7 +1,7 @@
 
 
 export class WebAppDom {
-    updateProjectElements(name, id, addList) {
+    updateProjectElements(name, id, addListFunc) {
         //set project name
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
@@ -9,10 +9,10 @@ export class WebAppDom {
         //load lists
         document.querySelector(".project-lists").innerHTML = "";
         document.querySelector(".add-list-button").addEventListener("click", () => {
-            addList("New List");
+            addListFunc("New List");
         });
     }
-    createListElements(name, id, addTask) {
+    createListElements(name, id, addTaskFunc, renameListFunc) {
         //copy list template and update classname and append
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
@@ -20,10 +20,17 @@ export class WebAppDom {
         listEl.id = id;
         document.querySelector(".project-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = name;
+        
         listEl.querySelector(".add-task-button").addEventListener("click", () => {
-            addTask("New Task", id);
+            addTaskFunc("New Task", id);
         });
-
+        listEl.querySelector('.list-name').addEventListener('keydown', (evt) => {
+            if (evt.key === "Enter") {
+                evt.preventDefault();
+                renameListFunc(id, evt.target.innerText);
+                evt.target.blur();
+            }
+        });
     }
     deleteListElements(id) {
         document.querySelector(`#${id}.list `).remove();

@@ -105,10 +105,10 @@ class Project extends SupportFunc {
             this.lists.splice(index, 1);
         }
     }
+
     updateList(listId, newName) {
         const list = this.findList(listId);
         list.name = newName;
-        //update HTML
     }
 
 }
