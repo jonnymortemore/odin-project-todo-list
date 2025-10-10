@@ -1,6 +1,15 @@
 
 
 export class WebAppDom {
+
+    selectElementContents(el) {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
     updateProjectElements(name, id, addListFunc, renameProjectFunc) {
         //set project name
         const projectEl = document.querySelector(".project");
@@ -31,14 +40,17 @@ export class WebAppDom {
         listEl.querySelector(".add-task-button").addEventListener("click", () => {
             addTaskFunc("New Task", id);
         });
-        listEl.querySelector('.list-name').addEventListener('keydown', (evt) => {
+        const listName = listEl.querySelector('.list-name')
+        listName.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
                 renameListFunc(id, evt.target.innerText);
                 evt.target.blur();
+                window.getSelection().removeAllRanges();
             }
         });
-        listEl.querySelector('.list-name').focus();
+        listName.focus();
+        this.selectElementContents(listName);
 
     }
     deleteListElements(id) {
@@ -57,8 +69,10 @@ export class WebAppDom {
                 evt.preventDefault();
                 renameTaskFunc(listId, id, evt.target.innerText);
                 evt.target.blur();
+                window.getSelection().removeAllRanges();
             }
         });
         taskEl.focus();
+        this.selectElementContents(taskEl);
     }
 }
