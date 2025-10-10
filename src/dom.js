@@ -1,39 +1,32 @@
-import {WebApp, Project, List, Task, Label} from "./classes"
+
 
 export class WebAppDom {
-    constructor() {
-        this.webApp = new WebApp
-        this.currentProject = this.webApp.projects[0];
-        this.loadProject(this.currentProject)
-    }
-    loadProject(project) {
+    updateProjectElements(name, id) {
         //set project name
         const projectEl = document.querySelector(".project");
-        document.querySelector(".project-name").innerText = project.name;
-        projectEl.id = project.id;
+        document.querySelector(".project-name").innerText = name;
+        projectEl.id = id;
         //load lists
         document.querySelector(".project-lists").innerHTML = "";
-        project.lists.forEach(list => {
-            this.loadList(list)
-        });
     }
-    loadList(list) {
+    createListElements(name, id) {
         //copy list template and update classname and append
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
         listEl.removeAttribute("hidden");
-        listEl.id = list.id;
+        listEl.id = id;
         document.querySelector(".project-lists").appendChild(listEl);
-        listEl.querySelector(".list-header .list-name").innerText = list.name;
-        list.tasks.forEach(task => {
-            this.loadTask(listEl.querySelector(".list-tasks"), task)
-        });
+        listEl.querySelector(".list-header .list-name").innerText = name;
     }
-    loadTask(listEl, task) {
+    deleteListElements(id) {
+        document.querySelector(`#${id}.list `).remove();
+    }
+    createTaskElements(listId, title, id) {
+        const listEl = document.querySelector(`#${listId}.list `)
         const taskEl = document.createElement("div");
         taskEl.className = "task";
-        taskEl.innerText = task.title;
-        taskEl.id = task.id;
-        listEl.appendChild(taskEl);
+        taskEl.innerText = title;
+        taskEl.id = id;
+        listEl.querySelector(".list-tasks").appendChild(taskEl);
     }
 }

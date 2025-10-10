@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-export {WebApp, Project, List, Task, Label}
+export {ToDoController, Project, List, Task, Label}
 
 class SupportFunc {
     getNow() {
@@ -10,7 +10,7 @@ class SupportFunc {
     }
 }
 
-class WebApp extends SupportFunc {
+class ToDoController extends SupportFunc {
 
     #project_id = 0
     #label_id = 0
@@ -25,12 +25,32 @@ class WebApp extends SupportFunc {
             new Label("Important", "#FF0000", this.#label_id),
         ];
     }
+    findProject(projectId) {
+        const project = this.projects.find(project => project.id === projectId);
+        return project
+    }
+
     createProject(projectName) {
         this.#project_id++
-        this.projects.push(new Project(projectName, this.#project_id));
+        const project = new Project(projectName, this.#project_id)
+        this.projects.push(project);
+        return project;
     }
-    deleteProject(project) {
+
+    deleteProject(projectId) {
         //find projects in array and remove
+        const project = this.findProject(projectId);
+        const index = this.projects.indexOf(project);
+        if (index > -1) {
+            this.projects.splice(index, 1);
+        }
+        
+    }
+
+    updateProject(projectId, newName) {
+        const project = this.findProject(projectId);
+        project.name = newName
+
     }
 
     createLabel(labelName, color) {
@@ -38,10 +58,10 @@ class WebApp extends SupportFunc {
         this.#label_id++
         this.labels.push(new Label(labelName, color, this.#label_id))
     }
+
     deleteLabel(label) {
         //find label in array and remove
     }
-
 }
 
 class Project extends SupportFunc {
@@ -64,20 +84,33 @@ class Project extends SupportFunc {
     get name() {
         return this._name;
     }
-
+    findList(listId) {
+        const list = this.lists.find(list => list.id === listId);
+        return list
+    }
     createList(listName) {
-        this.#list_id++
-        this.lists.push(
-            new List(
-                listName, 
-                this.#list_id
-            )
-        )
+        this.#list_id++;
+        const list = new List(listName, this.#list_id);
+        this.lists.push(list);
+        return list
+
 
     }
-    deleteList(list) {
+
+    deleteList(listId) {
         //find list and delete from array
+        const list = this.findList(listId);
+        const index = this.lists.indexOf(list);
+        if (index > -1) {
+            this.lists.splice(index, 1);
+        }
     }
+    updateList(listId, newName) {
+        const list = this.findList(listId);
+        list.name = newName;
+        //update HTML
+    }
+
 }
  
 class List extends SupportFunc {
@@ -101,18 +134,35 @@ class List extends SupportFunc {
         return this._name;
     }
 
+    findTask(taskId) {
+        const task = this.tasks.find(task => task.id === taskId);
+        return task
+    }
+
     createTask(taskName, finishDate) {
         this.#task_id++
-        this.tasks.push(
-            new Task(
-                taskName, 
-                finishDate,  
-                this.#task_id
-            )
+        const task = new Task(
+            taskName, 
+            finishDate,  
+            this.#task_id
         )
+        this.tasks.push(task);
+        return task;
     }
-    deleteTask(task) {
+
+    deleteTask(taskId) {
         //find task in array and remove
+        //find list and delete from array
+        const task = this.findTask(taskId);
+        const index = this.tasks.indexOf(task);
+        if (index > -1) {
+            this.tasks.splice(index, 1);
+        }
+    }
+
+    updateTask(taskId, title) {
+        const task = this.findTask(taskId);
+        task.title = title;
     }
 
 
