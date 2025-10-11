@@ -28,7 +28,7 @@ export class WebAppDom {
             }
         });
     }
-    createListElements(name, id, addTaskFunc, renameListFunc) {
+    createListElements(name, id, addTaskFunc, renameListFunc, deleteListFunc) {
         //copy list template and update classname and append
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
@@ -39,6 +39,9 @@ export class WebAppDom {
 
         listEl.querySelector(".add-task-button").addEventListener("click", () => {
             addTaskFunc("New Task", id);
+        });
+        listEl.querySelector(".delete-list-button").addEventListener("click", () => {
+            deleteListFunc(id);
         });
         const listName = listEl.querySelector('.list-name')
         listName.addEventListener('keydown', (evt) => {
@@ -51,10 +54,11 @@ export class WebAppDom {
         });
         listName.focus();
         this.selectElementContents(listName);
+        
 
     }
-    deleteListElements(id) {
-        document.querySelector(`#${id}.list `).remove();
+    deleteListElements(listId) {
+        document.querySelector(`.list[id="${listId}"]`).remove();
     }
     createTaskElements(listId, title, id, renameTaskFunc) {
         const listEl = document.querySelector(`.list[id="${listId}"]`)

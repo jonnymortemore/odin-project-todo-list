@@ -25,7 +25,8 @@ class WebAppController {
                 list.name, 
                 list.id, 
                 this.addTask.bind(this),
-                this.renameList.bind(this)
+                this.renameList.bind(this),
+                this.deleteList.bind(this)
             )
             list.tasks.forEach(task => {
                 this.webDom.createTaskElements(
@@ -59,7 +60,8 @@ class WebAppController {
             list.name, 
             list.id, 
             this.addTask.bind(this),
-            this.renameList.bind(this)
+            this.renameList.bind(this),
+             this.deleteList.bind(this)
         )
     }
 
