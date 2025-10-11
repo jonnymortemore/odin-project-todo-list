@@ -35,6 +35,7 @@ class ToDoController extends SupportFunc {
         const project = new Project(projectName, this.#project_id)
         this.projects.push(project);
         return project;
+       
     }
 
     deleteProject(projectId) {
