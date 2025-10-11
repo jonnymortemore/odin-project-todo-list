@@ -2,15 +2,21 @@
 
 export class WebAppDom {
 
-    selectElementContents(el) {
+    #selectElementContents(el) {
         var range = document.createRange();
         range.selectNodeContents(el);
         var sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
     }
+    
+    #removeAllListeners(element) {
+        const clone = element.cloneNode(true);
+        element.replaceWith(clone);
+        return clone;
+    }
 
-    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc) {
+    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc, removeProjectFunc) {
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
         projectEl.id = id;
@@ -23,7 +29,7 @@ export class WebAppDom {
 
             document.querySelector(".add-project-button").addEventListener("click", () => {
                 addNewProjectFunc("New Project");
-            });
+            });            
         }
        
 
@@ -38,11 +44,15 @@ export class WebAppDom {
             }
         }
 
-        const projectName = document.querySelector('.project-name');
-        projectName.removeEventListener('keydown', renameProject);
-        projectName.addEventListener('keydown', renameProject);
-         projectName.removeEventListener('focusout', renameProject);
+        const projectName = this.#removeAllListeners(document.querySelector('.project-name'));
         projectName.addEventListener('focusout', renameProject);
+        projectName.addEventListener('keydown', renameProject);
+       
+
+        const removeProjButton = this.#removeAllListeners(document.querySelector(".remove-project-button"));
+        removeProjButton.addEventListener("click", () => {
+            removeProjectFunc(id);
+        });
         
     }
     createListElements(name, id, addTaskFunc, renameListFunc, deleteListFunc) {
@@ -73,7 +83,7 @@ export class WebAppDom {
             }
         });
         listName.focus();
-        this.selectElementContents(listName);
+        this.#selectElementContents(listName);
         
 
     }
@@ -114,7 +124,7 @@ export class WebAppDom {
             deleteTaskFunc(id, listId);
         })
         taskText.focus();
-        this.selectElementContents(taskText);
+        this.#selectElementContents(taskText);
     }
     deleteTaskElements(listId, taskId) {
         const list = document.querySelector(`.list[id="${listId}"]`);

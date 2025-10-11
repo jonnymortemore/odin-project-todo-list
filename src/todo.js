@@ -45,7 +45,6 @@ class ToDoController extends SupportFunc {
         if (index > -1) {
             this.projects.splice(index, 1);
         }
-        
     }
 
     updateProject(projectId, newName) {

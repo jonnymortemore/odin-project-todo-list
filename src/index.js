@@ -19,7 +19,8 @@ class WebAppController {
             initialLoad,
             this.addList.bind(this),
             this.renameProject.bind(this),
-            this.addProject.bind(this)
+            this.addProject.bind(this),
+            this.deleteProject.bind(this)
         )
         project.lists.forEach(list => {
             this.webDom.createListElements(
@@ -48,12 +49,14 @@ class WebAppController {
 
     deleteProject(projectId) {
         this.webApp.deleteProject(projectId);
+        console.log(this.webApp);
         this.loadProject(this.webApp.projects[0]);
     }
 
     renameProject(projectId, name) {
-        this.webApp.updateProject(projectId, name)
-        //update HTML
+        this.webApp.updateProject(projectId, name);
+        console.log("renameProject");
+
     }
 
     addList(listName) {
