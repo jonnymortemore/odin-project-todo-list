@@ -9,16 +9,17 @@ class WebAppController {
         this.webApp = new ToDoController
         this.webDom = new WebAppDom
         this.currentProject = this.webApp.projects[0];
-        this.loadProject(this.webApp.projects[0])
+        this.loadProject(this.webApp.projects[0], true)
     }
-    
-    loadProject(project) {
+    loadProject(project, initialLoad) {
         this.currentProject = project;
         this.webDom.updateProjectElements(
             project.name, 
             project.id, 
+            initialLoad,
             this.addList.bind(this),
-            this.renameProject.bind(this)
+            this.renameProject.bind(this),
+            this.addProject.bind(this)
         )
         project.lists.forEach(list => {
             this.webDom.createListElements(
@@ -42,7 +43,7 @@ class WebAppController {
 
     addProject(projectName) {
         const newProject = this.webApp.createProject(projectName);
-        this.loadProject(newProject);
+        this.loadProject(newProject, false);
     }
 
     deleteProject(projectId) {

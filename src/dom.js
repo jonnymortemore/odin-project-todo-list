@@ -10,23 +10,40 @@ export class WebAppDom {
         sel.addRange(range);
     }
 
-    updateProjectElements(name, id, addListFunc, renameProjectFunc) {
-        //set project name
+    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc) {
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
         projectEl.id = id;
-        //load lists
+
         document.querySelector(".project-lists").innerHTML = "";
-        document.querySelector(".add-list-button").addEventListener("click", () => {
-            addListFunc("New List");
-        });
-        document.querySelector('.project-name').addEventListener('keydown', (evt) => {
-            if (evt.key === "Enter") {
+        if (initialLoad) {
+             document.querySelector(".add-list-button").addEventListener("click", () => {
+                addListFunc("New List");
+            });
+
+            document.querySelector(".add-project-button").addEventListener("click", () => {
+                addNewProjectFunc("New Project");
+            });
+        }
+       
+
+        function renameProject(evt) {
+            if (evt.type === "keydown" && evt.key === "Enter") {
                 evt.preventDefault();
                 renameProjectFunc(id, evt.target.innerText);
                 evt.target.blur();
             }
-        });
+            if (evt.type === "focusout") {
+                renameProjectFunc(id, evt.target.innerText);
+            }
+        }
+
+        const projectName = document.querySelector('.project-name');
+        projectName.removeEventListener('keydown', renameProject);
+        projectName.addEventListener('keydown', renameProject);
+         projectName.removeEventListener('focusout', renameProject);
+        projectName.addEventListener('focusout', renameProject);
+        
     }
     createListElements(name, id, addTaskFunc, renameListFunc, deleteListFunc) {
         //copy list template and update classname and append
