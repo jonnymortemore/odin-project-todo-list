@@ -33,7 +33,8 @@ class WebAppController {
                     list.id, 
                     task.title, 
                     task.id,
-                    this.renameTask.bind(this)
+                    this.renameTask.bind(this),
+                    this.deleteTask.bind(this)
                 )
             });
         });
@@ -61,7 +62,7 @@ class WebAppController {
             list.id, 
             this.addTask.bind(this),
             this.renameList.bind(this),
-             this.deleteList.bind(this)
+            this.deleteList.bind(this)
         )
     }
 
@@ -82,14 +83,15 @@ class WebAppController {
             listId, 
             task.title, 
             task.id,
-            this.renameTask.bind(this)
+            this.renameTask.bind(this),
+            this.deleteTask.bind(this)
         )
     }
 
     deleteTask(taskId, listId) {
         const list = this.currentProject.findList(listId);
         list.deleteTask(taskId);
-        //update HTML
+        this.webDom.deleteTaskElements(listId, taskId);
 
     }
 

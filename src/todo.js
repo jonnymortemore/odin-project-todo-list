@@ -158,6 +158,7 @@ class List extends SupportFunc {
         if (index > -1) {
             this.tasks.splice(index, 1);
         }
+        console.log(this);
     }
 
     updateTask(taskId, title) {

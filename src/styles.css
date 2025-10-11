@@ -91,12 +91,24 @@ button {
 
 button:hover {
   background-color: var(--light-dark-background-color);
-  color: var(--dark-font-color)
+  color: var(--dark-font-color);
+  cursor: pointer;
 }
 
 .delete-list-button {
   padding: 10px;
   margin-left: 10px;
+}
+
+.delete-task-button {
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 0px;
+  border: none;
+}
+
+.delete-task-button:hover {
+  border-left: var(--standard-border);
 }
 
 .change-project-button {
@@ -224,13 +236,31 @@ button:hover {
   border-radius: var(--standard-radius);
   border: var(--standard-border);
   width: 95%;
-  padding: 10px 20px;
   margin-bottom: 10px;
   font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  overflow: hidden;
 }
 
-.task[contenteditable="true"]:focus {
+.task-hover:not(.task-text[contenteditable="true"]:focus) {
+  background-color: var(--light-dark-background-color);
+}
+
+.task-text {
+  width: 100%;
+  padding: 10px;
+}
+
+.task-text[contenteditable="true"]:focus {
   outline: none;  
   color: var(--light-font-color);
+}
+
+.task:has(.task-text[contenteditable="true"]:focus) {
   background-color: var(--dark-background-color);
 }
+
+ 
+

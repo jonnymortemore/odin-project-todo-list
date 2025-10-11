@@ -60,23 +60,41 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="${listId}"]`).remove();
     }
-    createTaskElements(listId, title, id, renameTaskFunc) {
+    createTaskElements(listId, title, id, renameTaskFunc, deleteTaskFunc) {
         const listEl = document.querySelector(`.list[id="${listId}"]`)
-        const taskEl = document.createElement("div");
+        const taskEl = document.querySelector(".task-template").cloneNode(true);
+        taskEl.hidden = false;
         taskEl.className = "task";
-        taskEl.innerText = title;
+        const taskText = taskEl.querySelector(".task-text");
+        const deleteBtn = taskEl.querySelector("button");
+        taskText.innerText = title;
         taskEl.id = id;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
-        taskEl.setAttribute("contenteditable", true);
         taskEl.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
                 renameTaskFunc(listId, id, evt.target.innerText);
                 evt.target.blur();
                 window.getSelection().removeAllRanges();
+                taskEl.querySelector("button").hidden = false;
             }
         });
-        taskEl.focus();
-        this.selectElementContents(taskEl);
+        taskEl.addEventListener("mouseover", () => {
+            taskEl.classList.add("task-hover");
+            deleteBtn.hidden = false;
+        })
+        taskEl.addEventListener("mouseout", () => {
+            taskEl.className = "task";
+            deleteBtn.hidden = true;
+        })
+        deleteBtn.addEventListener("click", () => {
+            deleteTaskFunc(id, listId);
+        })
+        taskText.focus();
+        this.selectElementContents(taskText);
+    }
+    deleteTaskElements(listId, taskId) {
+        const list = document.querySelector(`.list[id="${listId}"]`);
+        list.querySelector(`.task[id="${taskId}"]`).remove()
     }
 }
