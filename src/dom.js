@@ -44,6 +44,9 @@ export class WebAppDom {
             deleteListFunc(id);
         });
         const listName = listEl.querySelector('.list-name')
+        listName.addEventListener("focusout", (evt) => {
+            renameListFunc(id, evt.target.innerText);
+        })
         listName.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
@@ -79,6 +82,9 @@ export class WebAppDom {
                 taskEl.querySelector("button").hidden = false;
             }
         });
+        taskEl.addEventListener("focusout", (evt) => {
+            renameTaskFunc(listId, id, evt.target.innerText);
+        })
         taskEl.addEventListener("mouseover", () => {
             taskEl.classList.add("task-hover");
             deleteBtn.hidden = false;
