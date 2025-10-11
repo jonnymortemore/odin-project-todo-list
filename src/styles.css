@@ -79,6 +79,8 @@ header {
   font-weight: bold;
 }
 
+/*Button */
+
 button {
   border-radius: var(--standard-radius);
   border-bottom: 4px solid var(--dark-font-color);
@@ -91,6 +93,16 @@ button {
 button:hover {
   background-color: var(--light-dark-background-color);
   color: var(--dark-font-color)
+}
+
+.delete-list-button {
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.trash-icon {
+  width: 25px;
+  height: 25px;
 }
 
 /* Page Related */
@@ -147,7 +159,7 @@ button:hover {
   height: 90%;
   border: var(--standard-border);
   padding: 10px;
-  min-width: 300px;
+  width: 300px;
   margin-top: 10px;
   margin-left: 10px;
   border-radius: var(--standard-radius);
@@ -194,6 +206,7 @@ button:hover {
   width: 100%;
 
 }
+
 
 /* Task CSS */
 .task {
