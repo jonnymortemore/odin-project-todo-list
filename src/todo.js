@@ -108,6 +108,9 @@ class Project extends SupportFunc {
 
     updateList(listId, newName) {
         const list = this.findList(listId);
+        if (!list) {
+            return
+        }
         list.name = newName;
     }
 
@@ -163,6 +166,9 @@ class List extends SupportFunc {
 
     updateTask(taskId, title) {
         const task = this.findTask(taskId);
+        if (!task) {
+            return
+        }
         task.title = title;
     }
 

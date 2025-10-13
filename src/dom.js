@@ -19,7 +19,7 @@ export class WebAppDom {
     updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc, removeProjectFunc, projects) {
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
-        projectEl.id = id;
+        projectEl.id = `project-${id}`;
 
         document.querySelector(".project-lists").innerHTML = "";
 
@@ -85,7 +85,7 @@ export class WebAppDom {
         const listEl = document.querySelector(".list-template").cloneNode(true);
         listEl.className = "list";
         listEl.removeAttribute("hidden");
-        listEl.id = id;
+        listEl.id = `list-${id}`;
         document.querySelector(".project-lists").appendChild(listEl);
         listEl.querySelector(".list-header .list-name").innerText = name;
 
@@ -113,17 +113,17 @@ export class WebAppDom {
 
     }
     deleteListElements(listId) {
-        document.querySelector(`.list[id="${listId}"]`).remove();
+        document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
     createTaskElements(listId, title, id, renameTaskFunc, deleteTaskFunc) {
-        const listEl = document.querySelector(`.list[id="${listId}"]`)
+        const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
         taskEl.className = "task";
         const taskText = taskEl.querySelector(".task-text");
         const deleteBtn = taskEl.querySelector("button");
         taskText.innerText = title;
-        taskEl.id = id;
+        taskEl.id = `task-${id}`;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
         taskEl.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
@@ -152,7 +152,7 @@ export class WebAppDom {
         this.#selectElementContents(taskText);
     }
     deleteTaskElements(listId, taskId) {
-        const list = document.querySelector(`.list[id="${listId}"]`);
-        list.querySelector(`.task[id="${taskId}"]`).remove()
+        const list = document.querySelector(`.list[id="list-${listId}"]`);
+        list.querySelector(`.task[id="task-${taskId}"]`).remove()
     }
 }
