@@ -16,12 +16,24 @@ export class WebAppDom {
         return clone;
     }
 
-    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc, removeProjectFunc) {
+    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc, removeProjectFunc, projects) {
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
         projectEl.id = id;
 
         document.querySelector(".project-lists").innerHTML = "";
+
+        //setup projects drop down
+        const projectDropdown = document.querySelector("#projects-dropdown")
+        projectDropdown.style.display = "none";
+        projectDropdown.hidden = true;
+        projectDropdown.innerHTML = "";
+        projects.forEach(project => {
+            const dropdownEl = document.createElement("div");
+            dropdownEl.className = "dropdown-element";
+            dropdownEl.innerText = project.name;
+            projectDropdown.appendChild(dropdownEl);
+        });
 
         if (initialLoad) {
             document.querySelector(".add-list-button").addEventListener("click", () => {
@@ -34,11 +46,14 @@ export class WebAppDom {
             
             document.querySelector(".change-project-button").addEventListener("click", () => {
                 const dropdown = document.querySelector("#projects-dropdown");
-                const projectDisplay = document.querySelector(".project-name");
-                console.log("dropdown")
-                dropdown.hidden = false;
-                dropdown.style.top = projectDisplay.style.bottom;
-                dropdown.style.left = projectDisplay.style.left;
+                console.log("dropdown");
+                if (dropdown.hidden === false) {
+                    dropdown.hidden = true;
+                    dropdown.style.display = "none";
+                } else {
+                    dropdown.hidden = false;
+                    dropdown.style.display = "flex";
+                }
             });
         }
        

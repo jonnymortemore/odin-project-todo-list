@@ -20,7 +20,8 @@ class WebAppController {
             this.addList.bind(this),
             this.renameProject.bind(this),
             this.addProject.bind(this),
-            this.deleteProject.bind(this)
+            this.deleteProject.bind(this),
+            this.webApp.projects
         )
         project.lists.forEach(list => {
             this.webDom.createListElements(
