@@ -11,6 +11,10 @@ class WebAppController {
         this.currentProject = this.webApp.projects[0];
         this.loadProject(this.webApp.projects[0], true)
     }
+    loadProjectFromId(projectId) {
+        const project = this.webApp.findProject(parseInt(projectId));
+        this.loadProject(project, false);
+    }
     loadProject(project, initialLoad) {
         this.currentProject = project;
         this.webDom.updateProjectElements(
@@ -21,7 +25,8 @@ class WebAppController {
             this.renameProject.bind(this),
             this.addProject.bind(this),
             this.deleteProject.bind(this),
-            this.webApp.projects
+            this.webApp.projects,
+            this.loadProjectFromId.bind(this)
         )
         project.lists.forEach(list => {
             this.webDom.createListElements(

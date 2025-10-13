@@ -16,7 +16,17 @@ export class WebAppDom {
         return clone;
     }
 
-    updateProjectElements(name, id, initialLoad, addListFunc, renameProjectFunc, addNewProjectFunc, removeProjectFunc, projects) {
+    updateProjectElements(
+            name, 
+            id, 
+            initialLoad, 
+            addListFunc, 
+            renameProjectFunc, 
+            addNewProjectFunc, 
+            removeProjectFunc, 
+            projects,
+            loadProjectFunc
+        ) {
         const projectEl = document.querySelector(".project");
         document.querySelector(".project-name").innerText = name;
         projectEl.id = `project-${id}`;
@@ -32,7 +42,12 @@ export class WebAppDom {
             const dropdownEl = document.createElement("div");
             dropdownEl.className = "dropdown-element";
             dropdownEl.innerText = project.name;
+            dropdownEl.id = `project-dropdown-${project.id}`;
+            dropdownEl.dataset.projectId = project.id;
             projectDropdown.appendChild(dropdownEl);
+            dropdownEl.addEventListener("click", (evt) => {
+                loadProjectFunc(evt.target.dataset.projectId);
+            })
         });
 
         if (initialLoad) {

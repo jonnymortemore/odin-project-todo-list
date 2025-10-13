@@ -25,8 +25,12 @@ class ToDoController extends SupportFunc {
             new Label("Important", "#FF0000", this.#label_id),
         ];
     }
+
     findProject(projectId) {
+        console.log(projectId);
+        console.log(this);
         const project = this.projects.find(project => project.id === projectId);
+        console.log(project);
         return project
     }
 
@@ -34,6 +38,7 @@ class ToDoController extends SupportFunc {
         this.#project_id++
         const project = new Project(projectName, this.#project_id)
         this.projects.push(project);
+        console.log(this);
         return project;
        
     }
