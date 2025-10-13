@@ -22,14 +22,24 @@ export class WebAppDom {
         projectEl.id = id;
 
         document.querySelector(".project-lists").innerHTML = "";
+
         if (initialLoad) {
-             document.querySelector(".add-list-button").addEventListener("click", () => {
+            document.querySelector(".add-list-button").addEventListener("click", () => {
                 addListFunc("New List");
             });
 
             document.querySelector(".add-project-button").addEventListener("click", () => {
                 addNewProjectFunc("New Project");
-            });            
+            }); 
+            
+            document.querySelector(".change-project-button").addEventListener("click", () => {
+                const dropdown = document.querySelector("#projects-dropdown");
+                const projectDisplay = document.querySelector(".project-name");
+                console.log("dropdown")
+                dropdown.hidden = false;
+                dropdown.style.top = projectDisplay.style.bottom;
+                dropdown.style.left = projectDisplay.style.left;
+            });
         }
        
 
