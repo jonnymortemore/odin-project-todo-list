@@ -34,22 +34,26 @@ export class WebAppDom {
         document.querySelector(".project-lists").innerHTML = "";
 
         //setup projects drop down
-        const projectDropdown = document.querySelector("#projects-dropdown")
-        projectDropdown.style.display = "none";
-        projectDropdown.hidden = true;
-        projectDropdown.innerHTML = "";
-        projects.forEach(project => {
-            const dropdownEl = document.createElement("div");
-            dropdownEl.className = "dropdown-element";
-            dropdownEl.innerText = project.name;
-            dropdownEl.id = `project-dropdown-${project.id}`;
-            dropdownEl.dataset.projectId = project.id;
-            projectDropdown.appendChild(dropdownEl);
-            dropdownEl.addEventListener("click", (evt) => {
-                loadProjectFunc(evt.target.dataset.projectId);
-            })
-        });
+        function setupProjectsDropdown() {
+            const projectDropdown = document.querySelector("#projects-dropdown")
+            projectDropdown.style.display = "none";
+            projectDropdown.hidden = true;
+            projectDropdown.innerHTML = "";
+            projects.forEach(project => {
+                const dropdownEl = document.createElement("div");
+                dropdownEl.className = "dropdown-element";
+                dropdownEl.innerText = project.name;
+                dropdownEl.id = `project-dropdown-${project.id}`;
+                dropdownEl.dataset.projectId = project.id;
+                projectDropdown.appendChild(dropdownEl);
+                dropdownEl.addEventListener("click", (evt) => {
+                    loadProjectFunc(evt.target.dataset.projectId);
+                })
+            });
+        }
 
+        setupProjectsDropdown();
+        
         if (initialLoad) {
             document.querySelector(".add-list-button").addEventListener("click", () => {
                 addListFunc("New List");
@@ -77,10 +81,12 @@ export class WebAppDom {
             if (evt.type === "keydown" && evt.key === "Enter") {
                 evt.preventDefault();
                 renameProjectFunc(id, evt.target.innerText);
+                setupProjectsDropdown();
                 evt.target.blur();
             }
             if (evt.type === "focusout") {
                 renameProjectFunc(id, evt.target.innerText);
+                setupProjectsDropdown();
             }
         }
 
