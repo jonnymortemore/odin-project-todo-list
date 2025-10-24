@@ -41,7 +41,7 @@ class WebAppController {
                     list.id, 
                     task.title, 
                     task.id,
-                    this.renameTask.bind(this),
+                    this.updateTask.bind(this),
                     this.getTaskDetails.bind(this),
                     this.deleteTask.bind(this)
                 )
@@ -94,7 +94,7 @@ class WebAppController {
             listId, 
             task.title, 
             task.id,
-            this.renameTask.bind(this),
+            this.updateTask.bind(this),
             this.getTaskDetails.bind(this),
             this.deleteTask.bind(this)
         )
@@ -107,7 +107,7 @@ class WebAppController {
 
     }
 
-    renameTask(listId, taskId, newName, newDesc, newDate) {
+    updateTask(listId, taskId, newName, newDesc, newDate) {
         const list = this.currentProject.findList(listId);
         list.updateTask(taskId, newName, newDesc, newDate);
     }

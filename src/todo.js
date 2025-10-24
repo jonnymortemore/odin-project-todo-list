@@ -196,8 +196,12 @@ class Task extends SupportFunc {
     }
 
     set title(title) {
+        if (title === null || title === "") {
+            return
+        }
         this._title = title;
     }
+
     get title() {
         return this._title;
     }
@@ -212,6 +216,9 @@ class Task extends SupportFunc {
     }
 
     set description(newDesc) {
+         if (newDesc === null) {
+            return
+        }
         this._description = newDesc;
     }
 
