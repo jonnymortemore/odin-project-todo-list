@@ -42,7 +42,8 @@ class WebAppController {
                     task.title, 
                     task.id,
                     this.renameTask.bind(this),
-                    this.getTaskDetails.bind(this)
+                    this.getTaskDetails.bind(this),
+                    this.deleteTask.bind(this)
                 )
             });
         });
@@ -94,7 +95,8 @@ class WebAppController {
             task.title, 
             task.id,
             this.renameTask.bind(this),
-            this.getTaskDetails.bind(this)
+            this.getTaskDetails.bind(this),
+            this.deleteTask.bind(this)
         )
     }
 

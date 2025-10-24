@@ -140,7 +140,7 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, title, id, renameTaskFunc, getTaskDetails) {
+    createTaskElements(listId, title, id, renameTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
@@ -173,18 +173,22 @@ export class WebAppDom {
         taskDropBtn.addEventListener("click", () => {
             const taskPopup = document.querySelector("#task-popup")
 
-            function setupPopup() {
+            function setupPopup(popup) {
                 //setup the task popup when opened
-                const task = getTaskDetails(listId, id);
+                const task = getTaskDetailsFunc(listId, id);
                 console.log(task);
                 document.querySelector(".popup-task-name").value = task.title;
                 document.querySelector(".popup-task-description").value = task.description;
                 document.querySelector(".popup-task-completion-date").value = task.completionDate;
+                document.querySelector(".delete-task-button").addEventListener("click", () => {
+                    deleteTaskFunc(id, listId);
+                    popup.style.display = "none";
+                })
             }
 
             if (taskPopup.style.display === "none") {
                 taskPopup.style.display = "flex";
-                setupPopup();
+                setupPopup(taskPopup);
             } else {
                 taskPopup.style.display = "none";
             }
