@@ -110,7 +110,6 @@ class WebAppController {
     renameTask(listId, taskId, newName) {
         const list = this.currentProject.findList(listId);
         list.updateTask(taskId, newName);
-
     }
 
     getTaskDetails(listId, taskId) {

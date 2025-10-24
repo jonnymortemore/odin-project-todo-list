@@ -177,14 +177,20 @@ export class WebAppDom {
                 //setup the task popup when opened
                 const task = getTaskDetailsFunc(listId, id);
                 console.log(task);
-                document.querySelector(".popup-task-name").value = task.title;
+                const titleInput = document.querySelector(".popup-task-name")
+                titleInput.value = task.title;
                 document.querySelector(".popup-task-description").value = task.description;
                 document.querySelector(".popup-task-completion-date").value = task.completionDate;
                 document.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
                     popup.style.display = "none";
                 })
-                document.querySelector(".exit-popup").addEventListener("click", () => {
+                document.querySelector(".exit-popup-button").addEventListener("click", () => {
+                    popup.style.display = "none";
+                })
+                document.querySelector(".update-task-button").addEventListener("click", () => {
+                    renameTaskFunc(listId, id, titleInput.value);
+                    taskText.innerText = titleInput.value;
                     popup.style.display = "none";
                 })
             }
