@@ -176,7 +176,6 @@ export class WebAppDom {
             function setupPopup(popup) {
                 //setup the task popup when opened
                 const task = getTaskDetailsFunc(listId, id);
-                console.log(task);
                 const inputTitle = document.querySelector(".popup-task-name")
                 inputTitle.value = task.title;
                 const inputDesc = document.querySelector(".popup-task-description")

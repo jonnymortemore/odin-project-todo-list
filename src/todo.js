@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 export {ToDoController, Project, List, Task, Label}
 
 class SupportFunc {
@@ -7,6 +7,12 @@ class SupportFunc {
         const now = new Date();
         // Format the date and time
         return format(now, 'yyyy-MM-dd HH:mm:ss'); 
+    }
+    setTextToDate(date) {
+        const formatString = 'yyyy-MM-dd'; // The format of the dateString
+        const referenceDate = new Date(); // A base date for parsing (e.g., for missing year or time info)
+        const parsedDate = parse(date, formatString, referenceDate);
+        return parsedDate
     }
 }
 
@@ -177,6 +183,8 @@ class List extends SupportFunc {
         task.title = title;
         task.desc = desc;
         task.completionDate = date;
+        console.log(date);
+        console.log(task);
     }
 
 
@@ -208,10 +216,10 @@ class Task extends SupportFunc {
 
     set completionDate(date) {
         // make sure completion date + time isn't before current date + time
-         if (this.completionDate === null || this.completionDate === "") {
+        if (date === null || date === "") {
             return
         }
-        this._completionDate = date;
+        this._completionDate = this.setTextToDate(date);
     }
 
     get completionDate() {
