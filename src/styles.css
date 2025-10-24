@@ -332,6 +332,7 @@ button:hover {
   font-weight: bold;
 }
 
+
 .popup-buttons {
   display: flex;
   flex-direction: row;
@@ -351,7 +352,8 @@ button:hover {
 }
 
 #task-popup button {
-  width: 20%;
+  padding: 5px;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
