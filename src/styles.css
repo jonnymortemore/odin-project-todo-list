@@ -347,11 +347,11 @@ button:hover {
   min-height: 300px;
 }
 
-#task-popup * {
+.task-popup * {
   margin-bottom: 5px;
 }
 
-#task-popup button {
+.task-popup button {
   padding: 5px;
   width: 30%;
   display: flex;

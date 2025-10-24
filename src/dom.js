@@ -3,7 +3,7 @@
 export class WebAppDom {
     constructor() {
         //hide popup on start
-        document.querySelector("#task-popup").style.display = "none";
+        document.querySelector("#task-popup-template").style.display = "none";
     }
 
     #selectElementContents(el) {
@@ -170,14 +170,20 @@ export class WebAppDom {
             taskDropBtn.hidden = true;
         })
         taskDropBtn.addEventListener("click", () => {
-            const taskPopup = document.querySelector("#task-popup")
+            document.querySelectorAll("#task-popup").forEach((popup) => {
+                popup.remove()
+            })
+            const taskPopup = document.querySelector("#task-popup-template").cloneNode(true);
+            taskPopup.id = "task-popup";
+            taskPopup.style.display = "flex";
+            document.querySelector(".project").appendChild(taskPopup);
 
             function setupPopup(popup) {
                 //setup the task popup when opened
                 const task = getTaskDetailsFunc(listId, id);
-                const inputTitle = document.querySelector(".popup-task-name")
+                const inputTitle = popup.querySelector(".popup-task-name")
                 inputTitle.value = task.title;
-                const inputDesc = document.querySelector(".popup-task-description")
+                const inputDesc = popup.querySelector(".popup-task-description")
                 inputDesc.value = task.description;
                 const inputCompletionDate = document.querySelector(".popup-task-completion-date")
                 if (task.completionDate !== undefined) {
@@ -185,14 +191,14 @@ export class WebAppDom {
                 } else {
                     inputCompletionDate.value = "";
                 }
-                document.querySelector(".delete-task-button").addEventListener("click", () => {
+                popup.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
-                    popup.style.display = "none";
+                    popup.remove();
                 })
-                document.querySelector(".exit-popup-button").addEventListener("click", () => {
-                    popup.style.display = "none";
+                popup.querySelector(".exit-popup-button").addEventListener("click", () => {
+                    popup.remove();
                 })
-                document.querySelector(".update-task-button").addEventListener("click", () => {
+                popup.querySelector(".update-task-button").addEventListener("click", () => {
                     updateTaskFunc(
                         listId, 
                         id, 
@@ -201,16 +207,11 @@ export class WebAppDom {
                         inputCompletionDate.value
                     );
                     taskText.innerText = inputTitle.value;
-                    popup.style.display = "none";
+                    popup.remove();;
                 })
             }
 
-            if (taskPopup.style.display === "none") {
-                taskPopup.style.display = "flex";
-                setupPopup(taskPopup);
-            } else {
-                taskPopup.style.display = "none";
-            }
+            setupPopup(taskPopup);
         })
         taskText.focus();
         this.#selectElementContents(taskText);
