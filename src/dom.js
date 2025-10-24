@@ -140,7 +140,7 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, title, id, renameTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
+    createTaskElements(listId, title, id, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
@@ -153,14 +153,14 @@ export class WebAppDom {
         taskEl.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
-                renameTaskFunc(listId, id, evt.target.innerText);
+                updateTaskFunc(listId, id, evt.target.innerText, null, null);
                 evt.target.blur();
                 window.getSelection().removeAllRanges();
                 taskEl.querySelector("button").hidden = false;
             }
         });
         taskEl.addEventListener("focusout", (evt) => {
-            renameTaskFunc(listId, id, evt.target.innerText);
+            updateTaskFunc(listId, id, evt.target.innerText, null, null);
         })
         taskEl.addEventListener("mouseover", () => {
             taskEl.classList.add("task-hover");
@@ -177,10 +177,12 @@ export class WebAppDom {
                 //setup the task popup when opened
                 const task = getTaskDetailsFunc(listId, id);
                 console.log(task);
-                const titleInput = document.querySelector(".popup-task-name")
-                titleInput.value = task.title;
-                document.querySelector(".popup-task-description").value = task.description;
-                document.querySelector(".popup-task-completion-date").value = task.completionDate;
+                const inputTitle = document.querySelector(".popup-task-name")
+                inputTitle.value = task.title;
+                const inputDesc = document.querySelector(".popup-task-description")
+                inputDesc.value = task.description;
+                const inputCompletionDate = document.querySelector(".popup-task-completion-date")
+                inputCompletionDate.value = task.completionDate;
                 document.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
                     popup.style.display = "none";
@@ -189,8 +191,14 @@ export class WebAppDom {
                     popup.style.display = "none";
                 })
                 document.querySelector(".update-task-button").addEventListener("click", () => {
-                    renameTaskFunc(listId, id, titleInput.value);
-                    taskText.innerText = titleInput.value;
+                    updateTaskFunc(
+                        listId, 
+                        id, 
+                        inputTitle.value, 
+                        inputDesc.value, 
+                        inputCompletionDate.value
+                    );
+                    taskText.innerText = inputTitle.value;
                     popup.style.display = "none";
                 })
             }

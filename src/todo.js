@@ -169,12 +169,14 @@ class List extends SupportFunc {
         console.log(this);
     }
 
-    updateTask(taskId, title) {
+    updateTask(taskId, title, desc, date) {
         const task = this.findTask(taskId);
         if (!task) {
             return
         }
         task.title = title;
+        task.desc = desc;
+        task.completionDate = date;
     }
 
 
