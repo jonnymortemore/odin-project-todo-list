@@ -136,14 +136,13 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, title, id, renameTaskFunc, deleteTaskFunc) {
+    createTaskElements(listId, title, id, renameTaskFunc) {
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
         taskEl.className = "task";
         const taskText = taskEl.querySelector(".task-text");
-        const taskDropBtn = taskEl.querySelector(".task-dropdown-button");
-        const taskDeletBtn = taskEl.querySelector(".delete-task-button");
+        const taskDropBtn = taskEl.querySelector(".task-menu-button");
         taskText.innerText = title;
         taskEl.id = `task-${id}`;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
@@ -166,9 +165,6 @@ export class WebAppDom {
         taskEl.addEventListener("mouseout", () => {
             taskEl.className = "task";
             taskDropBtn.hidden = true;
-        })
-        taskDeletBtn.addEventListener("click", () => {
-            deleteTaskFunc(id, listId);
         })
         taskText.focus();
         this.#selectElementContents(taskText);

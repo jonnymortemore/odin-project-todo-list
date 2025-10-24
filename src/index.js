@@ -93,8 +93,7 @@ class WebAppController {
             listId, 
             task.title, 
             task.id,
-            this.renameTask.bind(this),
-            this.deleteTask.bind(this)
+            this.renameTask.bind(this)
         )
     }
 

@@ -101,7 +101,7 @@ button:hover {
   margin-left: 10px;
 }
 
-.task-dropdown-button {
+.task-menu-button {
   padding: 10px;
   margin-left: 10px;
   border-radius: 0px;
@@ -325,7 +325,36 @@ button:hover {
   padding: 10px;
   border: var(--standard-border);
   border-radius: var(--standard-radius);
+ 
 }
 
+.popup label {
+  font-weight: bold;
+}
+
+.popup-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+#task-popup {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+  min-height: 300px;
+}
+
+#task-popup * {
+  margin-bottom: 5px;
+}
+
+#task-popup button {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
  
 
