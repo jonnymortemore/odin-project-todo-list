@@ -208,6 +208,9 @@ class Task extends SupportFunc {
 
     set completionDate(date) {
         // make sure completion date + time isn't before current date + time
+         if (this.completionDate === null || this.completionDate === "") {
+            return
+        }
         this._completionDate = date;
     }
 
