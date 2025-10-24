@@ -101,14 +101,14 @@ button:hover {
   margin-left: 10px;
 }
 
-.delete-task-button {
+.task-dropdown-button {
   padding: 10px;
   margin-left: 10px;
   border-radius: 0px;
   border: none;
 }
 
-.delete-task-button:hover {
+.task-dropdown-button:hover {
   border-left: var(--standard-border);
 }
 
@@ -232,7 +232,7 @@ button:hover {
   margin-top: 10px;
   margin-left: 10px;
   border-radius: var(--standard-radius);
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 
@@ -291,6 +291,8 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: stretch;
+  position: relative;
+  z-index: 2;
   overflow: hidden;
 }
 
@@ -310,6 +312,19 @@ button:hover {
 
 .task:has(.task-text[contenteditable="true"]:focus) {
   background-color: var(--dark-background-color);
+}
+
+.popup {
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  position: absolute;
+  z-index: 9999;
+  background-color: var(--light-background-color);
+  padding: 10px;
+  border: var(--standard-border);
+  border-radius: var(--standard-radius);
 }
 
  

@@ -142,7 +142,8 @@ export class WebAppDom {
         taskEl.hidden = false;
         taskEl.className = "task";
         const taskText = taskEl.querySelector(".task-text");
-        const deleteBtn = taskEl.querySelector("button");
+        const taskDropBtn = taskEl.querySelector(".task-dropdown-button");
+        const taskDeletBtn = taskEl.querySelector(".delete-task-button");
         taskText.innerText = title;
         taskEl.id = `task-${id}`;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
@@ -160,13 +161,13 @@ export class WebAppDom {
         })
         taskEl.addEventListener("mouseover", () => {
             taskEl.classList.add("task-hover");
-            deleteBtn.hidden = false;
+            taskDropBtn.hidden = false;
         })
         taskEl.addEventListener("mouseout", () => {
             taskEl.className = "task";
-            deleteBtn.hidden = true;
+            taskDropBtn.hidden = true;
         })
-        deleteBtn.addEventListener("click", () => {
+        taskDeletBtn.addEventListener("click", () => {
             deleteTaskFunc(id, listId);
         })
         taskText.focus();

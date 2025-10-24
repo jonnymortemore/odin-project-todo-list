@@ -16,9 +16,7 @@
                 <div class="list-header">
                     <h3 class="list-name" contenteditable="true"></h3>
                 </div>
-                <div class="list-tasks">
-
-                </div>
+                <div class="list-tasks"></div>
                 <div class="list-actions">
                     <button class="add-task-button">Add Task</button>
                     <button class="delete-list-button">
@@ -36,17 +34,29 @@
             <div class="task-template" hidden>
                 <!--renamed as class "task"-->
                 <div class="task-text" contenteditable="true"></div>
+                <button class="task-dropdown-button">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+            <div class="popup" id="task-popup">
                 <button class="delete-task-button">
                     <svg class="trash-icon">
                         <use href="#trash"/>
                     </svg>
                 </button>
+                <button class="delete-task-button">End Date</button>
             </div>
             <div class="project-header">
                 <div class="project-dropdown-container">
                     <h3 class="project-name" contenteditable="true"></h3>
                     <button class="change-project-button">
-                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg id="dropdown" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!--https://www.svgrepo.com/svg/458529/arrow-drop-down-big-->
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
