@@ -1,4 +1,4 @@
-import { format, parse } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 export {ToDoController, Project, List, Task, Label}
 
 class SupportFunc {
@@ -9,10 +9,7 @@ class SupportFunc {
         return format(now, 'yyyy-MM-dd HH:mm:ss'); 
     }
     setTextToDate(date) {
-        const formatString = 'yyyy-MM-dd'; // The format of the dateString
-        const referenceDate = new Date(); // A base date for parsing (e.g., for missing year or time info)
-        const parsedDate = parse(date, formatString, referenceDate);
-        return parsedDate
+        return parseISO(date);
     }
 }
 
@@ -33,10 +30,7 @@ class ToDoController extends SupportFunc {
     }
 
     findProject(projectId) {
-        console.log(projectId);
-        console.log(this);
         const project = this.projects.find(project => project.id === projectId);
-        console.log(project);
         return project
     }
 
@@ -44,7 +38,6 @@ class ToDoController extends SupportFunc {
         this.#project_id++
         const project = new Project(projectName, this.#project_id)
         this.projects.push(project);
-        console.log(this);
         return project;
        
     }
@@ -172,7 +165,6 @@ class List extends SupportFunc {
         if (index > -1) {
             this.tasks.splice(index, 1);
         }
-        console.log(this);
     }
 
     updateTask(taskId, title, desc, date) {
@@ -183,8 +175,6 @@ class List extends SupportFunc {
         task.title = title;
         task.desc = desc;
         task.completionDate = date;
-        console.log(date);
-        console.log(task);
     }
 
 
@@ -216,7 +206,7 @@ class Task extends SupportFunc {
 
     set completionDate(date) {
         // make sure completion date + time isn't before current date + time
-        if (date === null || date === "") {
+        if (date === null || date === "" || date === undefined || date === 0) {
             return
         }
         this._completionDate = this.setTextToDate(date);

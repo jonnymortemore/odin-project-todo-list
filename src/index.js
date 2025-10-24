@@ -56,13 +56,11 @@ class WebAppController {
 
     deleteProject(projectId) {
         this.webApp.deleteProject(projectId);
-        console.log(this.webApp);
         this.loadProject(this.webApp.projects[0]);
     }
 
     renameProject(projectId, name) {
         this.webApp.updateProject(projectId, name);
-        console.log("renameProject");
 
     }
 
@@ -118,7 +116,7 @@ class WebAppController {
         return {
             "title": task.title,
             "description": task.description,
-            "completionDate": task.completionDate
+            "completionDate": this.completionDate
         }
     }
 }

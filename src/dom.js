@@ -69,7 +69,6 @@ export class WebAppDom {
             
             document.querySelector(".change-project-button").addEventListener("click", () => {
                 const dropdown = document.querySelector("#projects-dropdown");
-                console.log("dropdown");
                 if (dropdown.hidden === false) {
                     dropdown.hidden = true;
                     dropdown.style.display = "none";
@@ -181,7 +180,11 @@ export class WebAppDom {
                 const inputDesc = document.querySelector(".popup-task-description")
                 inputDesc.value = task.description;
                 const inputCompletionDate = document.querySelector(".popup-task-completion-date")
-                inputCompletionDate.value = task.completionDate;
+                if (task.completionDate !== undefined) {
+                    inputCompletionDate.value = task.completionDate;
+                } else {
+                    inputCompletionDate.value = "";
+                }
                 document.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
                     popup.style.display = "none";
