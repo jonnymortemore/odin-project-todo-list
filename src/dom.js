@@ -184,6 +184,9 @@ export class WebAppDom {
                     deleteTaskFunc(id, listId);
                     popup.style.display = "none";
                 })
+                document.querySelector(".exit-popup").addEventListener("click", () => {
+                    popup.style.display = "none";
+                })
             }
 
             if (taskPopup.style.display === "none") {
