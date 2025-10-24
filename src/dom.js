@@ -1,6 +1,10 @@
 
 
 export class WebAppDom {
+    constructor() {
+        //hide popup on start
+        document.querySelector("#task-popup").style.display = "none";
+    }
 
     #selectElementContents(el) {
         var range = document.createRange();
@@ -165,6 +169,14 @@ export class WebAppDom {
         taskEl.addEventListener("mouseout", () => {
             taskEl.className = "task";
             taskDropBtn.hidden = true;
+        })
+        taskDropBtn.addEventListener("click", () => {
+            const taskPopup = document.querySelector("#task-popup")
+            if (taskPopup.style.display === "none") {
+                taskPopup.style.display = "flex";
+            } else {
+                taskPopup.style.display = "none";
+            }
         })
         taskText.focus();
         this.#selectElementContents(taskText);
