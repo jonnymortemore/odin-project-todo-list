@@ -285,15 +285,15 @@ button:hover {
 .task {
   border-radius: var(--standard-radius);
   border: var(--standard-border);
-  width: 95%;
+  width: 100%;
   margin-bottom: 10px;
   font-size: 1rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr 1fr;
-  position: relative;
+  min-height: 100px;
   z-index: 2;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .task-hover:not(.task-text[contenteditable="true"]:focus) {
