@@ -313,6 +313,8 @@ button:hover {
 .task-completion-date {
   grid-row: 2;
   grid-column: 1;
+  font-size: 0.9rem;
+  color: var(--dark-background-color);
 }
 
 .task-menu-button {

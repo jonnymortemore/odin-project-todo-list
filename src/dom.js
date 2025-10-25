@@ -1,4 +1,4 @@
-
+import { format, isEqual, differenceInDays} from 'date-fns';
 
 export class WebAppDom {
     constructor() {
@@ -140,6 +140,27 @@ export class WebAppDom {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
     createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
+
+        function setCompletionDate(element, date) {
+            if (date !== undefined) {
+                const today = new Date();
+                const formattedDate = format(today, "yyyy-MM-dd");
+                const daysDifferent = differenceInDays(date,formattedDate);
+                if (isEqual(formattedDate, date)) {
+                    element.innerText = "Due Today!"
+                } else if (daysDifferent === 1) {
+                    element.innerText = "Due Tomorrow!"
+                } else if(daysDifferent < 0) {
+                    element.innerText = `${Math.abs(daysDifferent)} days overdue`
+                } else {
+                    element.innerText = `${daysDifferent} days till due`
+                }
+            }
+            else {
+                element.innerText = "No Deadline";
+            }
+        }
+
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
@@ -147,7 +168,9 @@ export class WebAppDom {
         const taskText = taskEl.querySelector(".task-text");
         const taskDropBtn = taskEl.querySelector(".task-menu-button");
         const taskCompletionDate = taskEl.querySelector(".task-completion-date");
-        taskCompletionDate.innerText = completionDate;
+
+        setCompletionDate(taskCompletionDate, completionDate);
+        
         taskText.innerText = title;
         taskEl.id = `task-${id}`;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
@@ -194,6 +217,12 @@ export class WebAppDom {
                 } else {
                     inputCompletionDate.value = "";
                 }
+                //restrict picked date to today and beyond
+                const today = new Date();
+                const formattedDate = format(today, "yyyy-MM-dd");
+                //inputCompletionDate.min = formattedDate;
+
+
                 popup.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
                     popup.remove();
@@ -210,6 +239,7 @@ export class WebAppDom {
                         inputCompletionDate.value
                     );
                     taskText.innerText = inputTitle.value;
+                    setCompletionDate(taskCompletionDate, inputCompletionDate.value);
                     popup.remove();;
                 })
             }
