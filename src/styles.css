@@ -347,6 +347,11 @@ button:hover {
   min-height: 300px;
 }
 
+#task-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
 .task-popup * {
   margin-bottom: 5px;
 }

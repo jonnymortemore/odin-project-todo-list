@@ -181,11 +181,11 @@ export class WebAppDom {
             function setupPopup(popup) {
                 //setup the task popup when opened
                 const task = getTaskDetailsFunc(listId, id);
-                const inputTitle = popup.querySelector(".popup-task-name")
+                const inputTitle = popup.querySelector(".popup-task-name");
                 inputTitle.value = task.title;
-                const inputDesc = popup.querySelector(".popup-task-description")
+                const inputDesc = popup.querySelector(".popup-task-description");
                 inputDesc.value = task.description;
-                const inputCompletionDate = document.querySelector(".popup-task-completion-date")
+                const inputCompletionDate = popup.querySelector(".popup-task-completion-date");
                 if (task.completionDate !== undefined) {
                     inputCompletionDate.value = task.completionDate;
                 } else {

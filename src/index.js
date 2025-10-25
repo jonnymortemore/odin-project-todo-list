@@ -116,7 +116,7 @@ class WebAppController {
         return {
             "title": task.title,
             "description": task.description,
-            "completionDate": this.completionDate
+            "completionDate": task.completionDate
         }
     }
 }

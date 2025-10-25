@@ -11,6 +11,9 @@ class SupportFunc {
     setTextToDate(date) {
         return parseISO(date);
     }
+    setDateToText(date) {
+        return format(date, "YYYY-MM-DDTHH:mm")
+    }
 }
 
 class ToDoController extends SupportFunc {
@@ -173,8 +176,9 @@ class List extends SupportFunc {
             return
         }
         task.title = title;
-        task.desc = desc;
+        task.description = desc;
         task.completionDate = date;
+        console.log(task);
     }
 
 
@@ -209,7 +213,7 @@ class Task extends SupportFunc {
         if (date === null || date === "" || date === undefined || date === 0) {
             return
         }
-        this._completionDate = this.setTextToDate(date);
+        this._completionDate = date;
     }
 
     get completionDate() {
