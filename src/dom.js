@@ -152,14 +152,15 @@ export class WebAppDom {
         taskEl.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
-                updateTaskFunc(listId, id, evt.target.innerText, null, null);
+                updateTaskFunc(listId, id, evt.currentTarget.innerText, null, null);
                 evt.target.blur();
                 window.getSelection().removeAllRanges();
                 taskEl.querySelector("button").hidden = false;
             }
         });
         taskEl.addEventListener("focusout", (evt) => {
-            updateTaskFunc(listId, id, evt.target.innerText, null, null);
+            //current target always targets the source of the event listener
+            updateTaskFunc(listId, id, evt.currentTarget.innerText, null, null);
         })
         taskEl.addEventListener("mouseover", () => {
             taskEl.classList.add("task-hover");

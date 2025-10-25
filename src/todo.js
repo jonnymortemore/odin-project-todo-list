@@ -178,7 +178,6 @@ class List extends SupportFunc {
         task.title = title;
         task.description = desc;
         task.completionDate = date;
-        console.log(task);
     }
 
 
