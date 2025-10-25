@@ -288,9 +288,9 @@ button:hover {
   width: 95%;
   margin-bottom: 10px;
   font-size: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr 1fr;
   position: relative;
   z-index: 2;
   overflow: hidden;
@@ -300,9 +300,24 @@ button:hover {
   background-color: var(--light-dark-background-color);
 }
 
-.task-text {
+.task-text, .task-completion-date {
   width: 100%;
   padding: 10px;
+}
+
+.task-text {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.task-completion-date {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.task-menu-button {
+  grid-row: 1 / span 2;
+  grid-column: 2;
 }
 
 .task-text[contenteditable="true"]:focus {
@@ -313,6 +328,8 @@ button:hover {
 .task:has(.task-text[contenteditable="true"]:focus) {
   background-color: var(--dark-background-color);
 }
+
+/* popups */
 
 .popup {
   width: 300px;

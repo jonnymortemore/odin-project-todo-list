@@ -139,17 +139,19 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, title, id, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
+    createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
         taskEl.className = "task";
         const taskText = taskEl.querySelector(".task-text");
         const taskDropBtn = taskEl.querySelector(".task-menu-button");
+        const taskCompletionDate = taskEl.querySelector(".task-completion-date");
+        taskCompletionDate.innerText = completionDate;
         taskText.innerText = title;
         taskEl.id = `task-${id}`;
         listEl.querySelector(".list-tasks").appendChild(taskEl);
-        taskEl.addEventListener('keydown', (evt) => {
+        taskText.addEventListener('keydown', (evt) => {
             if (evt.key === "Enter") {
                 evt.preventDefault();
                 updateTaskFunc(listId, id, evt.currentTarget.innerText, null, null);
@@ -158,7 +160,7 @@ export class WebAppDom {
                 taskEl.querySelector("button").hidden = false;
             }
         });
-        taskEl.addEventListener("focusout", (evt) => {
+        taskText.addEventListener("focusout", (evt) => {
             //current target always targets the source of the event listener
             updateTaskFunc(listId, id, evt.currentTarget.innerText, null, null);
         })

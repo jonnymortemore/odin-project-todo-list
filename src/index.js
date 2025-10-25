@@ -39,8 +39,9 @@ class WebAppController {
             list.tasks.forEach(task => {
                 this.webDom.createTaskElements(
                     list.id, 
-                    task.title, 
                     task.id,
+                    task.title,
+                    task.completionDate,
                     this.updateTask.bind(this),
                     this.getTaskDetails.bind(this),
                     this.deleteTask.bind(this)
@@ -89,9 +90,10 @@ class WebAppController {
         const list = this.currentProject.findList(listId);
         const task = list.createTask(taskName, list.id);
         this.webDom.createTaskElements(
-            listId, 
-            task.title, 
+            list.id, 
             task.id,
+            task.title,
+            task.completionDate,
             this.updateTask.bind(this),
             this.getTaskDetails.bind(this),
             this.deleteTask.bind(this)
