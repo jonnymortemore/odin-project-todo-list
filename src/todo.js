@@ -69,6 +69,14 @@ class ToDoController extends SupportFunc {
     deleteLabel(label) {
         //find label in array and remove
     }
+
+    getToDoAsJson() {
+        const projectsJson = [];
+        this.projects.forEach((project) => {
+            projectsJson.push(project.toJson())
+        });
+        return projectsJson;
+    }
 }
 
 class Project extends SupportFunc {
@@ -119,6 +127,19 @@ class Project extends SupportFunc {
             return
         }
         list.name = newName;
+    }
+
+    toJson() {
+        const projectJson = {
+            "id": this.id,
+            "name": this.name,
+            "dateCreated": this.dateCreated,
+            "lists": []
+        }
+        this.lists.forEach((list) => {
+            projectJson.lists.push(list.toJson());
+        })
+        return projectJson
     }
 
 }
@@ -180,6 +201,18 @@ class List extends SupportFunc {
         task.completionDate = date;
     }
 
+    toJson() {
+        const listJson = {
+            "id": this.id,
+            "name": this.name,
+            "date": this.dateCreated,
+            "tasks": []
+        }
+        this.tasks.forEach((task) => {
+            listJson.tasks.push(task.toJson());
+        })
+        return listJson;
+    }
 
 }
 
@@ -232,6 +265,17 @@ class Task extends SupportFunc {
 
     addLabel(label) {
         this.labels.push(label);
+    }
+
+    toJson() {
+        return {
+            "id": this.id,
+            "title": this.title,
+            "dateCreated": this.dateCreated,
+            "completionDate": this.completionDate ,
+            "description": this.description,
+            "completed": this.completed
+        }
     }
 }
 

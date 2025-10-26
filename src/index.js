@@ -10,6 +10,7 @@ class WebAppController {
         this.webDom = new WebAppDom
         this.currentProject = this.webApp.projects[0];
         this.loadProject(this.webApp.projects[0], true)
+        this.saveToLocalStorage();
     }
     loadProjectFromId(projectId) {
         const project = this.webApp.findProject(parseInt(projectId));
@@ -120,6 +121,15 @@ class WebAppController {
             "description": task.description,
             "completionDate": task.completionDate
         }
+    }
+
+    loadFromLocalStorage() {
+    }
+
+    saveToLocalStorage() {
+        const toDoJson = JSON.stringify(this.webApp.getToDoAsJson());
+        console.log(toDoJson);
+        localStorage.setItem("todo", toDoJson);
     }
 }
 
