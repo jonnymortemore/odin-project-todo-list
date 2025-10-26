@@ -142,7 +142,6 @@ export class WebAppDom {
     createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
 
         function setCompletionDate(element, date) {
-            console.log(date)
             if (typeof date === "string" && date !== "") {
                 const today = new Date();
                 const formattedDate = format(today, "yyyy-MM-dd");
