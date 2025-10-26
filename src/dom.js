@@ -142,7 +142,8 @@ export class WebAppDom {
     createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
 
         function setCompletionDate(element, date) {
-            if (date !== undefined) {
+            console.log(date)
+            if (typeof date === "string" && date !== "") {
                 const today = new Date();
                 const formattedDate = format(today, "yyyy-MM-dd");
                 const daysDifferent = differenceInDays(date,formattedDate);
