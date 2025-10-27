@@ -73,10 +73,20 @@ header {
   background-color: var(--dark-background-color);
   color: var(--light-font-color);
   display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
   font-weight: bold;
+}
+
+.webpage-name {
+  padding: 5px 20px;
+  border-left: 30px solid var(--light-background-color);
+  border-right: 100px solid var(--light-background-color);
+  border-bottom-left-radius: var(--standard-radius);
+  border-top-right-radius: var(--standard-radius);
 }
 
 /*Button */
