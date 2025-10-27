@@ -16,6 +16,7 @@ class WebAppController {
         const project = this.webApp.findProject(parseInt(projectId));
         this.loadProject(project, false);
     }
+
     loadProject(project, initialLoad) {
         this.currentProject = project;
         this.webDom.updateProjectElements(
@@ -54,15 +55,18 @@ class WebAppController {
     addProject(projectName) {
         const newProject = this.webApp.createProject(projectName);
         this.loadProject(newProject, false);
+        this.saveToLocalStorage()
     }
 
     deleteProject(projectId) {
         this.webApp.deleteProject(projectId);
         this.loadProject(this.webApp.projects[0]);
+        this.saveToLocalStorage();
     }
 
     renameProject(projectId, name) {
         this.webApp.updateProject(projectId, name);
+        this.saveToLocalStorage();
 
     }
 
@@ -74,17 +78,19 @@ class WebAppController {
             this.addTask.bind(this),
             this.renameList.bind(this),
             this.deleteList.bind(this)
-        )
+        );
+        this.saveToLocalStorage();
     }
 
     deleteList(listId) {
         this.currentProject.deleteList(listId);
         this.webDom.deleteListElements(listId);
-        //Update HTML
+        this.saveToLocalStorage();
     }
 
     renameList(listId, name) {
         this.currentProject.updateList(listId, name);
+        this.saveToLocalStorage();
     }
 
     addTask(taskName, listId) {
@@ -98,19 +104,22 @@ class WebAppController {
             this.updateTask.bind(this),
             this.getTaskDetails.bind(this),
             this.deleteTask.bind(this)
-        )
+        );
+        this.saveToLocalStorage();
     }
 
     deleteTask(taskId, listId) {
         const list = this.currentProject.findList(listId);
         list.deleteTask(taskId);
         this.webDom.deleteTaskElements(listId, taskId);
+        this.saveToLocalStorage();
 
     }
 
     updateTask(listId, taskId, newName, newDesc, newDate) {
         const list = this.currentProject.findList(listId);
         list.updateTask(taskId, newName, newDesc, newDate);
+        this.saveToLocalStorage();
     }
 
     getTaskDetails(listId, taskId) {
@@ -128,7 +137,6 @@ class WebAppController {
 
     saveToLocalStorage() {
         const toDoJson = JSON.stringify(this.webApp.getToDoAsJson());
-        console.log(toDoJson);
         localStorage.setItem("todo", toDoJson);
     }
 }
