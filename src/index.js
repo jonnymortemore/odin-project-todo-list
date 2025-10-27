@@ -82,6 +82,9 @@ class WebAppController {
             this.renameList.bind(this),
             this.deleteList.bind(this)
         );
+        list.tasks.forEach((task) => {
+            this.addTask(task.title, list.id)
+        })
         this.saveToLocalStorage();
     }
 

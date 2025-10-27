@@ -104,6 +104,7 @@ export class WebAppDom {
         });
         
     }
+
     createListElements(name, id, addTaskFunc, renameListFunc, deleteListFunc) {
         //copy list template and update classname and append
         const listEl = document.querySelector(".list-template").cloneNode(true);
@@ -136,11 +137,11 @@ export class WebAppDom {
         
 
     }
+
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
     createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
-
         function setCompletionDate(element, date) {
             if (typeof date === "string" && date !== "") {
                 const today = new Date();
