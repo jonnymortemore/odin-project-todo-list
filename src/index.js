@@ -8,8 +8,8 @@ class WebAppController {
     #localStorageKey = "todo"
 
     constructor() {
-        
-        this.webApp = new ToDoController
+        const todoData = JSON.parse(localStorage.getItem(this.#localStorageKey));
+        this.webApp = new ToDoController(todoData)
         this.webDom = new WebAppDom
         this.currentProject = this.webApp.projects[0];
         this.loadProject(this.webApp.projects[0], true)
@@ -142,3 +142,4 @@ class WebAppController {
 }
 
 console.log(new WebAppController);
+

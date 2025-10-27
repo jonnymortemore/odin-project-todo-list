@@ -21,11 +21,20 @@ class ToDoController extends SupportFunc {
     #project_id = 0
     #label_id = 0
 
-    constructor() {
+    constructor(todoLoadData) {
         super()
-        this.projects = [
-            new Project("Project 1", this.#project_id)
-        ];
+        this.projects = [];
+        //if no data to load in
+        if (todoLoadData === null) {
+            this.projects.push(new Project("Project 1", this.#project_id, null));
+        } else {
+            this.#project_id = todoLoadData.project_id;
+            this.#label_id = todoLoadData.label_id;
+            todoLoadData.projects.forEach((project) => {
+                this.projects.push(new Project(project.name, project.id, project));
+            })
+        }
+        
         // will hold all created labels
         this.labels = [
             new Label("Important", "#FF0000", this.#label_id),
@@ -39,7 +48,7 @@ class ToDoController extends SupportFunc {
 
     createProject(projectName) {
         this.#project_id++
-        const project = new Project(projectName, this.#project_id)
+        const project = new Project(projectName, this.#project_id, null)
         this.projects.push(project);
         return project;
        
@@ -89,16 +98,31 @@ class Project extends SupportFunc {
 
     #list_id = 0;
 
-    constructor(projectName, id) {
+    constructor(projectName, id, loadedProjectData) {
         super()
         this.id = id;
         this.name = projectName;
-        this.dateCreated = this.getNow()
-        this.lists = [
-            new List("List 1", this.#list_id)
-        ]
+        this.lists = [];
+        if (loadedProjectData === null) {
+            //if not loading in existing lists, set a standard single list
+            this.dateCreated = this.getNow()
+            this.lists.push(
+                new List("List 1", this.#list_id, null)
+            ); 
+        } else {
+            //load in existing lists
+            console.log(loadedProjectData)
+            this.dateCreated = loadedProjectData.dateCreated;
+            this.#list_id = loadedProjectData.list_id;
+            loadedProjectData.lists.forEach((list) => {
+                this.lists.push(
+                    new List(list.name, list.id, list)
+                )
+            })
+        }
+        
     }
-    
+
     //getting and setting project name
     set name(name) {
         this._name = name;
@@ -110,9 +134,10 @@ class Project extends SupportFunc {
         const list = this.lists.find(list => list.id === listId);
         return list
     }
+
     createList(listName) {
         this.#list_id++;
-        const list = new List(listName, this.#list_id);
+        const list = new List(listName, this.#list_id, null);
         this.lists.push(list);
         return list
 
@@ -156,14 +181,26 @@ class List extends SupportFunc {
 
     #task_id = 0;
 
-    constructor(listName, id) {
+    constructor(listName, id, loadedListData) {
         super()
         this.id = id;
         this.name = listName;
-        this.dateCreated = this.getNow();
-        this.tasks = [
-            new Task("Task 1", null, this.#task_id)
-        ]
+        this.tasks = []
+        if (loadedListData === null) {
+            this.dateCreated = this.getNow();
+            this.tasks.push(
+                new Task("Task 1", null, this.#task_id, null)
+            );
+        } else {
+            this.dateCreated = loadedListData.dateCreated;
+            this.#task_id = loadedListData.task_id;
+            loadedListData.tasks.forEach((task) => {
+                this.tasks.push(
+                    new Task(task.title, task.completionDate, task.id, task)
+                )
+            })
+        }
+        
     }
 
     set name(name) {
@@ -183,7 +220,8 @@ class List extends SupportFunc {
         const task = new Task(
             taskName, 
             finishDate,  
-            this.#task_id
+            this.#task_id,
+            null
         )
         this.tasks.push(task);
         return task;
@@ -226,16 +264,24 @@ class List extends SupportFunc {
 }
 
 class Task extends SupportFunc {
-    constructor(taskName, finishDate, id) {
+    constructor(taskName, finishDate, id, loadedTaskData) {
         super()
         this.id = id;
         this.title = taskName;
-        this.dateCreated = this.getNow();
         this.completionDate = finishDate;
-        this.description = "";
-        this.completed = false;
-        // will hold all added labels
-        this.label = []
+        this.labels = []
+        
+        if (loadedTaskData === null) {
+            this.dateCreated = this.getNow();
+            this.description = "";
+            this.completed = false;
+           
+        } else {
+            this.dateCreated = loadedTaskData.dateCreated;
+            this.description = loadedTaskData.description;
+            this.completed = loadedTaskData.completed;
+        }
+        
     }
 
     set title(title) {
