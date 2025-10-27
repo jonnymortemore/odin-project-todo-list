@@ -247,6 +247,15 @@ class List extends SupportFunc {
         task.completionDate = date;
     }
 
+    toggleTaskCompleted(taskId, state) {
+        const task = this.findTask(taskId);
+        if (!task) {
+            return
+        }
+        task.completed = state;
+        console.log(task);
+    }
+
     toJson() {
         const listJson = {
             "id": this.id,

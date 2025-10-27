@@ -145,9 +145,22 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc) {
+    createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc, setTaskCompletedFunc) {
+        
+
+        const listEl = document.querySelector(`.list[id="list-${listId}"]`)
+        const taskEl = document.querySelector(".task-template").cloneNode(true);
+        taskEl.hidden = false;
+        taskEl.className = "task";
+        const taskText = taskEl.querySelector(".task-text");
+        const taskDropBtn = taskEl.querySelector(".task-menu-button");
+        const taskCompletionDate = taskEl.querySelector(".task-completion-date");
+        const taskCompletedCheck = taskEl.querySelector(".task-completed-check");
+
         function setCompletionDate(element, date) {
-            if (typeof date === "string" && date !== "") {
+            if (taskCompletedCheck.checked === true) {
+                 element.innerText = "completed!"
+            } else if (typeof date === "string" && date !== "") {
                 const today = new Date();
                 const formattedDate = format(today, "yyyy-MM-dd");
                 const daysDifferent = differenceInDays(date,formattedDate);
@@ -160,19 +173,10 @@ export class WebAppDom {
                 } else {
                     element.innerText = `${daysDifferent} days till due`
                 }
-            }
-            else {
+            } else {
                 element.innerText = "No Deadline";
             }
         }
-
-        const listEl = document.querySelector(`.list[id="list-${listId}"]`)
-        const taskEl = document.querySelector(".task-template").cloneNode(true);
-        taskEl.hidden = false;
-        taskEl.className = "task";
-        const taskText = taskEl.querySelector(".task-text");
-        const taskDropBtn = taskEl.querySelector(".task-menu-button");
-        const taskCompletionDate = taskEl.querySelector(".task-completion-date");
 
         setCompletionDate(taskCompletionDate, completionDate);
         
@@ -191,15 +195,15 @@ export class WebAppDom {
         taskText.addEventListener("focusout", (evt) => {
             //current target always targets the source of the event listener
             updateTaskFunc(listId, id, evt.currentTarget.innerText, null, null);
-        })
+        });
         taskEl.addEventListener("mouseover", () => {
             taskEl.classList.add("task-hover");
             taskDropBtn.hidden = false;
-        })
+        });
         taskEl.addEventListener("mouseout", () => {
             taskEl.className = "task";
             taskDropBtn.hidden = true;
-        })
+        });
         taskDropBtn.addEventListener("click", () => {
             document.querySelectorAll("#task-popup").forEach((popup) => {
                 popup.remove()
@@ -250,7 +254,11 @@ export class WebAppDom {
             }
 
             setupPopup(taskPopup);
-        })
+        });
+        taskCompletedCheck.addEventListener("change", (event) => {
+            setTaskCompletedFunc(listId, id, event.currentTarget.checked);
+            setCompletionDate(taskCompletionDate, completionDate);
+        });
         taskText.focus();
         this.#selectElementContents(taskText);
     }

@@ -49,7 +49,8 @@ class WebAppController {
                     task.completionDate,
                     this.updateTask.bind(this),
                     this.getTaskDetails.bind(this),
-                    this.deleteTask.bind(this)
+                    this.deleteTask.bind(this),
+                    this.toggleTaskCompleted.bind(this)
                 )
             });
         });
@@ -109,7 +110,8 @@ class WebAppController {
             task.completionDate,
             this.updateTask.bind(this),
             this.getTaskDetails.bind(this),
-            this.deleteTask.bind(this)
+            this.deleteTask.bind(this),
+            this.toggleTaskCompleted.bind(this)
         );
         this.saveToLocalStorage();
     }
@@ -120,6 +122,12 @@ class WebAppController {
         this.webDom.deleteTaskElements(listId, taskId);
         this.saveToLocalStorage();
 
+    }
+
+    toggleTaskCompleted(listId, taskId, completionState) {
+        const list = this.currentProject.findList(listId);
+        list.toggleTaskCompleted(taskId, completionState)
+        this.saveToLocalStorage();
     }
 
     updateTask(listId, taskId, newName, newDesc, newDate) {
