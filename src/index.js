@@ -64,7 +64,12 @@ class WebAppController {
 
     deleteProject(projectId) {
         this.webApp.deleteProject(projectId);
-        this.loadProject(this.webApp.projects[0]);
+        if (this.webApp.projects.length < 1) {
+            this.addProject("New Project");
+        } else {
+            this.loadProject(this.webApp.projects[0]);
+        }
+        
         this.saveToLocalStorage();
     }
 
