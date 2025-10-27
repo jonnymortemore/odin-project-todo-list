@@ -5,7 +5,8 @@ export class WebAppDom {
         //hide popup on start
         document.querySelector("#task-popup-template").style.display = "none";
         document.querySelector(".clear-data").addEventListener("click", () => {
-            //add clear data 
+            localStorage.clear();
+            window.location.reload();
         });
     }
 
