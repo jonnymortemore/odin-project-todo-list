@@ -136,8 +136,8 @@ export class WebAppDom {
                 window.getSelection().removeAllRanges();
             }
         });
-        listName.focus();
-        this.#selectElementContents(listName);
+        //listName.focus();
+        //this.#selectElementContents(listName);
         
 
     }
@@ -145,9 +145,8 @@ export class WebAppDom {
     deleteListElements(listId) {
         document.querySelector(`.list[id="list-${listId}"]`).remove();
     }
-    createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc, setTaskCompletedFunc) {
-        
 
+    createTaskElements(listId, id, title, completionDate, updateTaskFunc, getTaskDetailsFunc, deleteTaskFunc, setTaskCompletedFunc) {
         const listEl = document.querySelector(`.list[id="list-${listId}"]`)
         const taskEl = document.querySelector(".task-template").cloneNode(true);
         taskEl.hidden = false;
@@ -159,7 +158,7 @@ export class WebAppDom {
 
         function setCompletionDate(element, date) {
             if (taskCompletedCheck.checked === true) {
-                 element.innerText = "completed!"
+                 element.innerText = "Completed!"
             } else if (typeof date === "string" && date !== "") {
                 const today = new Date();
                 const formattedDate = format(today, "yyyy-MM-dd");
@@ -177,7 +176,10 @@ export class WebAppDom {
                 element.innerText = "No Deadline";
             }
         }
-
+        taskCompletedCheck.checked = (function() {
+            const task = getTaskDetailsFunc(listId, id);
+            return task.completed;
+        })(); 
         setCompletionDate(taskCompletionDate, completionDate);
         
         taskText.innerText = title;
@@ -226,11 +228,6 @@ export class WebAppDom {
                 } else {
                     inputCompletionDate.value = "";
                 }
-                //restrict picked date to today and beyond
-                const today = new Date();
-                const formattedDate = format(today, "yyyy-MM-dd");
-                //inputCompletionDate.min = formattedDate;
-
 
                 popup.querySelector(".delete-task-button").addEventListener("click", () => {
                     deleteTaskFunc(id, listId);
@@ -255,12 +252,14 @@ export class WebAppDom {
 
             setupPopup(taskPopup);
         });
+
         taskCompletedCheck.addEventListener("change", (event) => {
             setTaskCompletedFunc(listId, id, event.currentTarget.checked);
             setCompletionDate(taskCompletionDate, completionDate);
         });
-        taskText.focus();
-        this.#selectElementContents(taskText);
+
+        //taskText.focus();
+        //this.#selectElementContents(taskText);
     }
     deleteTaskElements(listId, taskId) {
         const list = document.querySelector(`.list[id="list-${listId}"]`);
