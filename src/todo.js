@@ -71,9 +71,15 @@ class ToDoController extends SupportFunc {
     }
 
     getToDoAsJson() {
-        const projectsJson = [];
+        const projectsJson = {
+            "project_id": this.#project_id,
+            "label_id": this.#label_id,
+            "projects": [
+
+            ]
+        };
         this.projects.forEach((project) => {
-            projectsJson.push(project.toJson())
+            projectsJson.projects.push(project.toJson())
         });
         return projectsJson;
     }
@@ -92,6 +98,7 @@ class Project extends SupportFunc {
             new List("List 1", this.#list_id)
         ]
     }
+    
     //getting and setting project name
     set name(name) {
         this._name = name;
@@ -132,6 +139,7 @@ class Project extends SupportFunc {
     toJson() {
         const projectJson = {
             "id": this.id,
+            "list_id": this.#list_id,
             "name": this.name,
             "dateCreated": this.dateCreated,
             "lists": []
@@ -206,6 +214,7 @@ class List extends SupportFunc {
             "id": this.id,
             "name": this.name,
             "date": this.dateCreated,
+            "task_id": this.#task_id,
             "tasks": []
         }
         this.tasks.forEach((task) => {

@@ -5,7 +5,10 @@ import {ToDoController} from "./todo";
 //To import images using JS, import as any file: import odinImage from "./odin.png";
 
 class WebAppController {
+    #localStorageKey = "todo"
+
     constructor() {
+        
         this.webApp = new ToDoController
         this.webDom = new WebAppDom
         this.currentProject = this.webApp.projects[0];
@@ -132,12 +135,9 @@ class WebAppController {
         }
     }
 
-    loadFromLocalStorage() {
-    }
-
     saveToLocalStorage() {
         const toDoJson = JSON.stringify(this.webApp.getToDoAsJson());
-        localStorage.setItem("todo", toDoJson);
+        localStorage.setItem(this.#localStorageKey, toDoJson);
     }
 }
 
